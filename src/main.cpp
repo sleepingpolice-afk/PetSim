@@ -1,7 +1,22 @@
 /*
-  Simple "Hello World" for ILI9341 LCD
+  Project is also available in: 
+  https://github.com/sleepingpolice-afk/PetSim
 
-  https://wokwi.com/arduino/projects/308024602434470466
+  Welcome to Virtual Pet Simulator!
+
+  Features:
+  - Pets, idle state, sleeping state, AFK state
+  - Klik pushbutton biru untuk kasih makan
+  - Warning: Bisa mati
+  - Kalau spam makan juga mati (reason: overweight)
+  - Bisa mining coin dengan pencet pushbutton kuning
+  - Tahan pushbutton kuning selama ~2 detik untuk buka status
+  - Status isinya health bar, hunger bar, jumlah koin yang dimiliki, dan stok obat
+  - Pada saat berada di window Status, tekan tombol hijau untuk membeli obat yang harganya 4 koin
+  - Pada saat pet nya dalam kondisi Idle (tidak tidur atau mati atau AFK), tekan pushbutton hijau untuk memberi obat jika stoknya masih ada
+  - Jika hunger bar dan health bar mencapai 0, maka pet akan mati.
+  - Ultrasonic sensor digunakan untuk kondisi AFK, yaitu jika majikan tidak berada 1 meter di depan sensor, maka anjing akan AFK alias tidur.
+
 */
 
 #include "SPI.h"
