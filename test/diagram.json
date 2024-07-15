@@ -1,49 +1,57 @@
 {
   "version": 1,
-  "author": "WesleyFO",
+  "author": "Uri Shaked",
   "editor": "wokwi",
   "parts": [
-    { "type": "wokwi-arduino-uno", "id": "uno", "top": 0.6, "left": -0.6, "attrs": {} },
-    {
-      "type": "board-ssd1306",
-      "id": "oled1",
-      "top": 243.14,
-      "left": 77.03,
-      "attrs": { "i2cAddress": "0x3c" }
-    },
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 336.6, "left": -10.2, "attrs": {} },
+    { "type": "wokwi-ili9341", "id": "lcd1", "top": 0.8, "left": 38.1, "attrs": {} },
     {
       "type": "wokwi-pushbutton",
       "id": "btn1",
-      "top": -80.2,
-      "left": 230.4,
-      "attrs": { "color": "yellow" }
-    },
-    {
-      "type": "wokwi-pushbutton",
-      "id": "btn2",
-      "top": -80.2,
-      "left": 19.2,
+      "top": 207.8,
+      "left": 249.6,
       "attrs": { "color": "blue" }
     },
     {
       "type": "wokwi-pushbutton",
+      "id": "btn2",
+      "top": 217.4,
+      "left": 364.8,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-pushbutton",
       "id": "btn3",
-      "top": -3.4,
-      "left": 336,
+      "top": 188.6,
+      "left": 499.2,
       "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "ultrasonic1",
+      "top": 385.5,
+      "left": 322.3,
+      "attrs": { "distance": "15" }
     }
   ],
   "connections": [
-    [ "oled1:GND", "uno:GND.2", "black", [ "v-38.4", "h28.8" ] ],
-    [ "oled1:VCC", "uno:5V", "red", [ "v-28.8", "h19.35" ] ],
-    [ "oled1:SCL", "uno:A5", "blue", [ "v-19.2", "h96.3" ] ],
-    [ "oled1:SDA", "uno:A4", "gray", [ "v-28.8", "h76.87" ] ],
-    [ "btn2:1.l", "uno:GND.1", "black", [ "h-28.8", "v48", "h124.8" ] ],
-    [ "btn2:2.r", "uno:13", "green", [ "h0" ] ],
-    [ "btn1:2.r", "uno:12", "green", [ "h0.2", "v38.6", "h-163.2" ] ],
-    [ "uno:GND.1", "btn1:1.l", "black", [ "v-38.4", "h48.3", "v-38.4" ] ],
-    [ "uno:GND.1", "btn3:1.l", "black", [ "v-28.8", "h163.5", "v28.8" ] ],
-    [ "btn3:2.r", "uno:11", "green", [ "h29", "v-143.8", "h-288", "v9.6" ] ]
+    [ "lcd1:GND", "uno:GND.1", "black", [ "v22", "h-46" ] ],
+    [ "lcd1:VCC", "uno:5V", "red", [ "v12", "h-103", "v251", "h104" ] ],
+    [ "lcd1:SCK", "uno:13", "green", [ "v16", "h-75" ] ],
+    [ "lcd1:MOSI", "uno:11", "green", [ "v24", "h-75" ] ],
+    [ "lcd1:CS", "uno:10", "orange", [ "v32", "h-64" ] ],
+    [ "lcd1:D/C", "uno:9", "purple", [ "v36", "h-84" ] ],
+    [ "uno:GND.1", "btn1:1.l", "black", [ "v-27.6", "h126.59", "v-96" ] ],
+    [ "uno:GND.1", "btn2:1.l", "black", [ "v-27.6", "h241.79", "v-86.4" ] ],
+    [ "uno:GND.1", "btn3:1.l", "black", [ "v-37.2", "h366.59", "v-105.6" ] ],
+    [ "btn1:2.r", "uno:7", "green", [ "h0.2", "v86.6", "h-134.4" ] ],
+    [ "btn2:2.r", "uno:6", "green", [ "h-9.4", "v67.4", "h-230.4" ] ],
+    [ "uno:5", "btn3:2.r", "green", [ "v-18", "h379.69" ] ],
+    [ "lcd1:RST", "uno:8", "green", [ "v33.69", "h45.33" ] ],
+    [ "ultrasonic1:VCC", "uno:5V", "red", [ "v105.6", "h-249.6" ] ],
+    [ "ultrasonic1:GND", "uno:GND.2", "black", [ "v76.8", "h-260.4" ] ],
+    [ "ultrasonic1:TRIG", "uno:4", "green", [ "v28.8", "h-134.8", "v-182.4", "h-67.2" ] ],
+    [ "ultrasonic1:ECHO", "uno:3", "green", [ "v38.4", "h-125.6", "v-192", "h-57.6" ] ]
   ],
   "dependencies": {}
 }
