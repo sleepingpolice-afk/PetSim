@@ -17,6 +17,7 @@
   - Jika hunger bar dan health bar mencapai 0, maka pet akan mati.
   - Ultrasonic sensor digunakan untuk kondisi AFK, yaitu jika majikan tidak berada 1 meter di depan sensor, maka anjing akan AFK alias tidur.
 
+  Song credit by: https://github.com/robsoncouto/arduino-songs 
 */
 
 #include "SPI.h"
@@ -31,6 +32,8 @@ Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 #define OLED_RESET 4
+
+
 
 // 'icons8-angry-dog-50', 50x50px
 const unsigned char epd_bitmap_icons8_angry_dog_50 [] PROGMEM = {
@@ -258,10 +261,83 @@ const unsigned char* needmedsallArray[1] = {
 	needmedsmeds
 };
 
+// 'jake', 50x50px
+const unsigned char jakijake [] PROGMEM = {
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x00, 0x00, 0x07, 0xfc, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 0xff, 0x80, 0x00, 0x00, 0x00, 
+	0x00, 0xf8, 0x03, 0xe0, 0x00, 0x00, 0x00, 0x03, 0xc0, 0x00, 0x78, 0x00, 0x00, 0x00, 0x07, 0x00, 
+	0x00, 0x3c, 0x00, 0x00, 0x00, 0x0e, 0x00, 0x00, 0x0e, 0x00, 0x00, 0x00, 0x1c, 0x00, 0x00, 0x07, 
+	0x00, 0x00, 0x00, 0x38, 0x00, 0x00, 0x03, 0x80, 0x00, 0x00, 0x70, 0x00, 0x00, 0x01, 0xc0, 0x00, 
+	0x00, 0x61, 0xe0, 0x00, 0xf0, 0xc0, 0x00, 0x00, 0xc7, 0xf8, 0x03, 0xfc, 0xe0, 0x00, 0x00, 0xc7, 
+	0x18, 0x03, 0x8c, 0x60, 0x00, 0x01, 0x8e, 0x0c, 0x07, 0x06, 0x30, 0x00, 0x01, 0x8e, 0x0f, 0xff, 
+	0x06, 0x30, 0x00, 0x01, 0x8e, 0x0f, 0xff, 0x06, 0x30, 0x00, 0x03, 0x0f, 0x1e, 0x0f, 0x8e, 0x18, 
+	0x00, 0x03, 0x07, 0xf8, 0x03, 0xfc, 0x18, 0x00, 0x03, 0x07, 0xf0, 0x01, 0xfc, 0x18, 0x00, 0x03, 
+	0x01, 0xf1, 0xf1, 0xf0, 0x18, 0x00, 0x03, 0x00, 0x63, 0xf8, 0xc0, 0x18, 0x00, 0x03, 0x30, 0x63, 
+	0xf8, 0xc1, 0x98, 0x00, 0x01, 0xb0, 0x61, 0xf0, 0xc1, 0xb0, 0x00, 0x01, 0xf0, 0x61, 0xb0, 0xc1, 
+	0xf0, 0x00, 0x00, 0x70, 0x61, 0xb0, 0xc1, 0xc0, 0x00, 0x00, 0x30, 0x73, 0xb9, 0xc1, 0x80, 0x00, 
+	0x00, 0x70, 0x33, 0x19, 0x81, 0xc0, 0x00, 0x00, 0xf0, 0x3f, 0x1f, 0x81, 0xe0, 0x00, 0x01, 0xf0, 
+	0x1e, 0x0f, 0x01, 0xf0, 0x00, 0x03, 0xb0, 0x00, 0x00, 0x01, 0xb8, 0x00, 0x07, 0x30, 0x00, 0x00, 
+	0x01, 0x9c, 0x00, 0x0e, 0x70, 0x00, 0x00, 0x01, 0xce, 0x00, 0x0c, 0xf0, 0x00, 0x00, 0x01, 0xe6, 
+	0x00, 0x0c, 0xf0, 0x00, 0x00, 0x01, 0xe6, 0x00, 0x0e, 0x70, 0x00, 0x00, 0x01, 0xce, 0x00, 0x07, 
+	0x30, 0x00, 0x00, 0x01, 0x9c, 0x00, 0x03, 0xb0, 0x00, 0x00, 0x01, 0xb8, 0x00, 0x01, 0xf0, 0x00, 
+	0x00, 0x01, 0xf0, 0x00, 0x00, 0xf0, 0x00, 0x00, 0x01, 0xe0, 0x00, 0x00, 0x70, 0x00, 0x00, 0x01, 
+	0xc0, 0x00, 0x00, 0x30, 0x00, 0x00, 0x01, 0x80, 0x00, 0x00, 0x30, 0x00, 0x00, 0x01, 0x80, 0x00, 
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+};
+
+// Array of all bitmaps for convenience. (Total bytes used to store images in PROGMEM = 368)
+const int jakiallArray_LEN = 1;
+const unsigned char* jakiallArray[1] = {
+	jakijake
+};
+
+
 
 #define RED 0xFF0000
 #define pintrig 4
 #define pinecho 3
+
+//For the song
+#define NOTE_D4  294
+#define NOTE_E4  330
+#define NOTE_G4  392
+#define NOTE_GS4 415
+#define NOTE_A4  440
+#define NOTE_B4  494
+#define NOTE_C5  523
+#define NOTE_AS4 466
+#define REST      0
+
+
+// change this to make the song slower or faster
+int tempo = 160;
+
+// change this to whichever pin you want to use
+int buzzer = 2;
+
+int melody[] = {
+
+  // Super Mario Bros theme
+  // Score available at https://musescore.com/user/2123/scores/2145
+  // Theme by Koji Kondo
+  
+  //game over sound
+  NOTE_C5,-4, NOTE_G4,-4, NOTE_E4,4,
+  NOTE_A4,-8, NOTE_B4,-8, NOTE_A4,-8, NOTE_GS4,-8, NOTE_AS4,-8, NOTE_GS4,-8,
+  NOTE_G4,8, NOTE_D4,8, NOTE_E4,-2,  
+
+};
+
+// sizeof gives the number of bytes, each int value is composed of two bytes (16 bits)
+// there are two values per note (pitch and duration), so for each note there are four bytes
+int notes = sizeof(melody) / sizeof(melody[0]) / 2;
+
+// this calculates the duration of a whole note in ms
+int wholenote = (60000 * 4) / tempo;
+
+int divider = 0, noteDuration = 0;
 
 //Adafruit_SSD1306 tft(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 //Adafruit_SSD1306 tft(OLED_RESET);
@@ -325,6 +401,7 @@ void getmeds();
 void pethungry();
 void currentstatus();
 void bokek();
+void playsong();
 
 void setup() {
   // put your setup code here, to run once:
@@ -341,6 +418,10 @@ pinMode(pinecho, INPUT);
 //tft.begin(SSD1306_SWITCHCAPVCC, 0x3c);
 tft.begin();
 
+tone(buzzer, 440, 200);
+delay(200);
+tone(buzzer, 330, 200);
+
 tft.fillScreen(ILI9341_BLACK);
 
 tft.setTextSize(2);
@@ -348,15 +429,16 @@ tft.setTextColor(ILI9341_WHITE);
 tft.setCursor(0, 0);
 tft.println("This is your pet.");
 
-
 delay(2000);
 
 tft.fillScreen(ILI9341_BLACK);
 tft.setCursor(0, 0);
 
-int randomindex = random(0, 3); // Generate a random index between 0 and 2
-Serial.println(randomindex);
-char* randomname[3] = {"Wesley", "Gio", "John Cena"}; // Define the array of names
+int randomindex = random(0, 5); 
+//Serial.println(randomindex);
+char* randomname[5] = {
+  "Wesley", "Gio", "John Cena", "Black", "Asu"
+}; // Define the array of names
 
 tft.print("His name is ");
 tft.print(randomname[randomindex]); // Print the random name
@@ -451,6 +533,9 @@ void loop() {
     if(coinstate == LOW && coinprevstate == HIGH)
     {
       coins = coins + 1;
+      tone(buzzer, 1568, 200);
+      delay(50);
+      tone(buzzer, 2093, 100);
       holdTime = millis();
       tft.setTextSize(2);
       tft.setCursor(120, 300);
@@ -461,6 +546,7 @@ void loop() {
     else if((millis() - holdTime >= 1500) && coinstate == LOW)
     {
       coins--;
+      tone(buzzer, 831, 150);
       currentstatus();
 
         while(digitalRead(coinbtn) == LOW)
@@ -473,8 +559,8 @@ void loop() {
 
     idledog();
 
-    // Check if 1 seconds have passed since last button press
-    if (millis() - spamtime >= 500) {
+    // Check if 3 seconds have passed since last button press
+    if (millis() - spamtime >= 3500) {
       if(spamclick > 0)
       {
         spamclick--;
@@ -517,6 +603,7 @@ void idledog()
 {
   int rng;
   rng = random(1000);
+  int rng2 = random(1, 3);
 
   if(rng > 0 && rng < 980)
   {
@@ -525,10 +612,17 @@ void idledog()
     
     //delay(3000);
   }
-  else if(rng >= 995 && rng <= 1000)
+  else if(rng >= 996 && rng <= 1000)
   {
     clearTopHalf();
-    tft.drawBitmap(random(20, 160), random(20, 120), dogsleepsleep, 32, 32, ILI9341_WHITE);
+    if(rng2 == 1)
+    {
+      tft.drawBitmap(random(20, 160), random(20, 120), dogsleepsleep, 32, 32, ILI9341_WHITE);
+    }
+    else
+    {
+      tft.drawBitmap(random(20, 160), random(20, 120), jakijake, 50, 50, ILI9341_WHITE);
+    }
     delay(3000);
     clearTopHalf();
   }
@@ -576,6 +670,7 @@ void gameover(int cause)
   }
 
   deaddog();
+  playsong();
 
   while(1)
   {
@@ -590,8 +685,11 @@ void getfood()
     hungerbar = 10;
   }
 
-  int number = random(0, 10); 
-  if (number > 8 && healthbar > 0) {
+  tone(buzzer, 262, 200);
+
+  int number = random(1, 11); 
+  //Serial.println(number); debug
+  if (number > 7 && healthbar > 0) {
     healthbar--;
     tft.setTextSize(2);
     tft.println("The food is poisonous");
@@ -607,6 +705,7 @@ void getmeds()
     tft.setCursor(0, 0);
     clearTopHalf();
     tft.println("Gave a med");
+    tone(buzzer, 932, 200);
     medsdog();
     healthbar = healthbar + 3;
     medstock--;
@@ -624,6 +723,13 @@ void getmeds()
     tft.setTextSize(2);
     tft.setCursor(0, 0);
     tft.print("Out of stock\n");
+    tone(buzzer, 262, 50);
+    delay(100);
+    tone(buzzer, 247, 50);
+    delay(100);
+    tone(buzzer, 233, 50);
+    delay(100);
+    tone(buzzer, 220, 180);
     bokek();
     delay(1500);
     tft.fillScreen(ILI9341_BLACK);
@@ -688,18 +794,31 @@ void currentstatus()
   tft.setTextSize(2);
   tft.setCursor(0, 0);
   tft.print("Coins: ");
+  tft.setTextColor(ILI9341_YELLOW);
   tft.print(coins);
+  tft.setTextColor(ILI9341_WHITE);
   
   tft.setCursor(0, 32);
   tft.print("HGR: ");
+
+  if(hungerbar <= 2)
+  {
+    tft.setTextColor(ILI9341_RED);
+  }
   
   for(int i=0; i<hungerbar; i++)
   {
     tft.print("|");
-    
   }
 
+  tft.setTextColor(ILI9341_WHITE);
+
   tft.print("\nHLT: ");
+
+  if(healthbar <= 2)
+  {
+    tft.setTextColor(ILI9341_RED);
+  }
   
   for(int i=0; i<healthbar; i++)
   {
@@ -707,9 +826,11 @@ void currentstatus()
     
   }
 
+  tft.setTextColor(ILI9341_WHITE);
+
   tft.print("\nMeds Stock: ");
   tft.print(medstock);
-  tft.print("\n\nPress Green\nto buy meds");
+  tft.print("\n\nPress Green to buy \nmeds\nfor 4 coins");
 
   unsigned long waitTime;
 
@@ -734,6 +855,9 @@ void currentstatus()
         medstock++;
         tft.setTextSize(2);
         tft.println("Bought a medicine\n for 4 coins");
+        tone(buzzer, 523, 30);
+        delay(40);
+        tone(buzzer, 523, 40);
       }
       delay(2000);
       break;
@@ -753,4 +877,33 @@ void bokek()
 {
   //tft.fillScreen(ILI9341_BLACK);
   tft.drawBitmap(50, 60, bokekicons8_no_hidden_fees_50, 50, 50, ILI9341_WHITE);
+}
+
+void playsong()
+{
+  // iterate over the notes of the melody.
+  // Remember, the array is twice the number of notes (notes + durations)
+  // no need to repeat the melody.
+  for (int thisNote = 0; thisNote < notes * 2; thisNote = thisNote + 2) {
+
+    // calculates the duration of each note
+    divider = melody[thisNote + 1];
+    if (divider > 0) {
+      // regular note, just proceed
+      noteDuration = (wholenote) / divider;
+    } else if (divider < 0) {
+      // dotted notes are represented with negative durations!!
+      noteDuration = (wholenote) / abs(divider);
+      noteDuration *= 1.5; // increases the duration in half for dotted notes
+    }
+
+    // we only play the note for 90% of the duration, leaving 10% as a pause
+    tone(buzzer, melody[thisNote], noteDuration * 0.9);
+
+    // Wait for the specief duration before playing the next note.
+    delay(noteDuration);
+
+    // stop the waveform generation before the next note.
+    noTone(buzzer);
+  }
 }

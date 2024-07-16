@@ -31,7 +31,14 @@
       "id": "ultrasonic1",
       "top": 385.5,
       "left": 322.3,
-      "attrs": { "distance": "15" }
+      "attrs": { "distance": "302" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": 79.2,
+      "left": -46.2,
+      "attrs": { "volume": "0.1" }
     }
   ],
   "connections": [
@@ -51,7 +58,9 @@
     [ "ultrasonic1:VCC", "uno:5V", "red", [ "v105.6", "h-249.6" ] ],
     [ "ultrasonic1:GND", "uno:GND.2", "black", [ "v76.8", "h-260.4" ] ],
     [ "ultrasonic1:TRIG", "uno:4", "green", [ "v28.8", "h-134.8", "v-182.4", "h-67.2" ] ],
-    [ "ultrasonic1:ECHO", "uno:3", "green", [ "v38.4", "h-125.6", "v-192", "h-57.6" ] ]
+    [ "ultrasonic1:ECHO", "uno:3", "green", [ "v38.4", "h-125.6", "v-192", "h-57.6" ] ],
+    [ "bz1:1", "uno:GND.1", "black", [ "v163.2", "h115.2" ] ],
+    [ "bz1:2", "uno:2", "green", [ "v172.8", "h239.6" ] ]
   ],
   "dependencies": {}
 }
