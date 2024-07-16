@@ -17,7 +17,9 @@
   - Jika hunger bar dan health bar mencapai 0, maka pet akan mati.
   - Ultrasonic sensor digunakan untuk kondisi AFK, yaitu jika majikan tidak berada 1 meter di depan sensor, maka anjing akan AFK alias tidur.
 
-  Song credit by: https://github.com/robsoncouto/arduino-songs 
+  - Update: Now ada suara
+
+  Gameover song credit by: https://github.com/robsoncouto/arduino-songs 
 */
 
 #include "SPI.h"
